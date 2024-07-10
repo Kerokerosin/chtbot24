@@ -1,19 +1,36 @@
 import telebot
+import random 
 bot = telebot.TeleBot('7295273118:AAEfL0FmNqIiyWbhjXhz_xK1sIh586ZjknU')
+global arbuz
+arbuz = random.randint(0, 101)
 
-
-
-
-
-
-#функция start
 @bot.message_handler(commands=["start"])
 def start(m, res=False):
-    bot.send_message(m.chat.id, 'Я на связи. Напиши мне что-нибудь )')
-    
+    bot.send_message(m.chat.id, 'Привет! я бот с игрой: Угадай число. от 1-10. Я загадаю число, а твоя задача его угадть. )')
+    number = random.randint(1,10)
+    counter=0
+    bot.send_message(m.chat.id, 'Я загадал число, начинай угадывать')
+    while counter<6:
+            bot.send_message(message.chat.id, 'Введите число')
+            guess=int(message.text)
+            if guess==digit:
+                bot.send_message(message.chat.id, 'Ура! Ты угадал число! Это была цифра:', digit)
+                break
+            else:
+                counter-=1
+                bot.send_message(message.chat.id, 'Неверно, осталось попыток:', counter)    
 #Получение сообшений от юзера
 @bot.message_handler(content_types=["text"])
 def handle_text(message):
+    global arbuz
+    if (int(message.text) == arbuz):
+        bot.send_message(message.chat.id, 'Вы победили')
+    else:
+        bot.send_message(message.chat.id, 'мимо')
+        if (int(message.text) > arbuz):
+            bot.send_message(message.chat.id, 'Меньше')
+        else:
+            bot.send_message(message.chat.id, 'Больше')
     #bot.send_message(message.chat.id, 'Вы написали: ' + message.text + str(len(message.text)))
    # for a in range(len(message.text)):
         #bot.send_message(message.chat.id,message.text[a])
@@ -22,10 +39,15 @@ def handle_text(message):
         bot.send_message(message.chat.id,  'Привет')
     if message.text == 'Ку':
         bot.send_message(message.chat.id,  'Привет')
-    if message.text == 'шутка':
-        bot.send_message(message.chat.id,  'давид лох')
+
 #Запускаем бота
 bot.polling(none_stop=True, interval=0)
+
+
+
+
+
+    
 
 
 
